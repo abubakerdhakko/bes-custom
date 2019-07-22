@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Get File Size Before Uploading in JavaScript</title>
+</head>
+
+<body>
+    <p>
+        <input type="file" id="file" multiple onchange="GetFileSize()" />
+    </p>
+
+    <p id="fp"></p>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#file').on('change', function () {
+            // Maximum file size allowed
+            var maxFileSize = 20 // 20kb
+            // Load the file upload controller to a variable
+            var fileUpload = $('#file');
+            //Check if the file upload controller has value
+            if (fileUpload.val() == '') {
+                return false;
+            } else {
+                //Check if the file size is less than maximum file size
+                if (fileUpload[0].files[0].size < maxFileSize) {
+                    return true;
+                } else {
+                    alert('File size should be less than 20kb')
+                    fileUpload.val('');
+                    return false;
+                }
+            }
+        });
+    })
+</script>
+<script>
+    function GetFileSize() {
+        var fi = document.getElementById('file'); // GET THE FILE INPUT.
+
+        // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
+        if (fi.files.length > 0) {
+            // RUN A LOOP TO CHECK EACH SELECTED FILE.
+            for (var i = 0; i <= fi.files.length - 1; i++) {
+
+                var fsize = fi.files.item(i).size; // THE SIZE OF THE FILE.
+                document.getElementById('fp').innerHTML =
+                    document.getElementById('fp').innerHTML + '<br /> ' +
+                    '<b>' + Math.round((fsize / 1024)) + '</b> KB';
+            }
+        }
+    }
+</script>
+
+</html>
